@@ -1,18 +1,21 @@
-from langchain_community.document_loaders import WebBaseLoader, RecursiveUrlLoader
+from langchain_community.document_loaders import WebBaseLoader
 from langchain_openai import OpenAIEmbeddings
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from app.config import OPENAI_API_KEY
+from app.utils.get_links import get_internal_links
 
-class VectorStore:
-    _instance = None
+def build_vectorstore(url="https://promtior.ai"):
+    urls = get_internal_links(url)
+    loader = WebBaseLoader(web_paths=urls)
+    docs = loader.load()
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+    docs = text_splitter.split_documents(docs)
+    embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+    return FAISS.from_documents(docs, embeddings)
 
-    def __new__(cls):
-        if cls._instance is None:
-            loader = WebBaseLoader("https://promtior.ai")
-            docs = loader.load()
-            embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
-            cls._instance = FAISS.from_documents(docs, embeddings)
-        return cls._instance
+vectorstore = build_vectorstore()
 
 def get_vectorstore():
-    return VectorStore()
+    return vectorstore
+

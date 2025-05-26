@@ -1,4 +1,4 @@
-# promptior_tech
+# promtior_tech
 
 ## Installation
 
