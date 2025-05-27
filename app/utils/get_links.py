@@ -14,7 +14,7 @@ def get_internal_links(base_url):
         r = requests.get(base_url, timeout=10)
         soup = BeautifulSoup(r.text, "html.parser")
     except Exception as e:
-        print(f"❌ Error cargando {base_url}: {e}")
+        print(f"Error fetching {base_url}: {e}")
         return []
     base_domain = urlparse(base_url).netloc.replace("www.", "")
     urls = set()

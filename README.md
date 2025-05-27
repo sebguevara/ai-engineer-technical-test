@@ -58,7 +58,7 @@ poetry install --no-interaction --no-ansi
 ### 3.3. Run the server
 
 ```bash
-langchain serve
+langchain serve --port=8080
 ```
 
 ---

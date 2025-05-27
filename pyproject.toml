@@ -24,6 +24,7 @@ langchain-community = "^0.3.24"
 beautifulsoup4 = "^4.13.4"
 faiss-cpu = "^1.11.0"
 pypdf = "^5.5.0"
+langchain-chroma = "^0.2.4"
 
 
 [tool.poetry.group.dev.dependencies]
