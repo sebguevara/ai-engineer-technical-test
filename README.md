@@ -1,79 +1,100 @@
-# promtior_tech
+# Promtior AI Engineer Technical Test
 
-## Installation
+## Overview
 
-Install the LangChain CLI if you haven't yet
+A RAG (Retrieval-Augmented Generation) chatbot built with LangChain and OpenAI GPT.
+
+---
+
+## Step-by-Step Setup Guide
+
+This guide will help you set up and run the project locally using Docker or Poetry, and test the API using the built-in playground.
+
+---
+
+## 1. Set Up Environment Variables
+
+Create a `.env` file in the project root with the following content:
+
+```env
+OPENAI_API_KEY=your-openai-key-here
+```
+
+---
+
+## 2. Build and Run with Docker
+
+### Build the Docker image:
 
 ```bash
-pip install -U langchain-cli
+docker compose build
 ```
 
-## Adding packages
+### Run the Docker container:
 
 ```bash
-# adding packages from 
-# https://github.com/langchain-ai/langchain/tree/master/templates
-langchain app add $PROJECT_NAME
-
-# adding custom GitHub repo packages
-langchain app add --repo $OWNER/$REPO
-# or with whole git string (supports other git providers):
-# langchain app add git+https://github.com/hwchase17/chain-of-verification
-
-# with a custom api mount point (defaults to `/{package_name}`)
-langchain app add $PROJECT_NAME --api_path=/my/custom/path/rag
+docker compose up -d
 ```
 
-Note: you remove packages by their api path
+---
+
+## 3. Run Locally with Poetry
+
+### 3.1. Create a virtual environment and install Poetry & LangChain CLI
 
 ```bash
-langchain app remove my/custom/path/rag
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install poetry
+pip install langchain-cli
 ```
 
-## Setup LangSmith (Optional)
-LangSmith will help us trace, monitor and debug LangChain applications. 
-You can sign up for LangSmith [here](https://smith.langchain.com/). 
-If you don't have access, you can skip this section
+### 3.2. Install project dependencies
 
-
-```shell
-export LANGSMITH_TRACING=true
-export LANGSMITH_API_KEY=<your-api-key>
-export LANGSMITH_PROJECT=<your-project>  # if not specified, defaults to "default"
+```bash
+poetry install --no-interaction --no-ansi
 ```
 
-## Launch LangServe
+### 3.3. Run the server
 
 ```bash
 langchain serve
 ```
 
-## Running in Docker
+---
 
-This project folder includes a Dockerfile that allows you to easily build and host your LangServe app.
+## 4. Test the API in the Playground
 
-### Building the Image
+Once the server is running, open your browser and go to:
 
-To build the image, you simply:
-
-```shell
-docker build . -t my-langserve-app
+```
+http://localhost:8080/promtior/playground
 ```
 
-If you tag your image with something other than `my-langserve-app`,
-note it for use in the next step.
+You can interact with the Promtior API directly from this playground interface.
 
-### Running the Image Locally
+---
 
-To run the image, you'll need to include any environment variables
-necessary for your application.
+## 5. Linting and Formatting
 
-In the below example, we inject the `OPENAI_API_KEY` environment
-variable with the value set in my local environment
-(`$OPENAI_API_KEY`)
+To check code style and linting:
 
-We also expose port 8080 with the `-p 8080:8080` option.
-
-```shell
-docker run -e OPENAI_API_KEY=$OPENAI_API_KEY -p 8080:8080 my-langserve-app
+```bash
+poetry run flake8
 ```
+
+To auto-format code:
+
+```bash
+poetry run black .
+```
+
+---
+
+## Technologies Used
+
+- **LangChain**: LLM application framework
+- **FastAPI**: Web framework for APIs  
+- **OpenAI GPT**: Language model
+- **Docker**: Containerization
+

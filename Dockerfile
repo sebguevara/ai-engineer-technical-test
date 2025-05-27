@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-RUN pip install poetry==1.6.1
+RUN pip install poetry==2.1.3
 
 RUN poetry config virtualenvs.create false
 
@@ -13,8 +13,7 @@ COPY ./package[s] ./packages
 RUN poetry install  --no-interaction --no-ansi --no-root
 
 COPY ./app ./app
-
-RUN poetry install --no-interaction --no-ansi
+COPY ./data ./data
 
 EXPOSE 8080
 
