@@ -44,9 +44,14 @@ docker compose up -d
 
 ```bash
 python -m venv .venv
+```
+
+```bash
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-pip install poetry
-pip install langchain-cli
+```
+
+```bash
+pip install poetry langchain-cli
 ```
 
 ### 3.2. Install project dependencies
