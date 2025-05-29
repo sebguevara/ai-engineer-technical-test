@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from langserve import add_routes
-from app.chains.retrieval_data import get_retrieval_qa_chain
+from app.chains.retrieval_chain import get_retrieval_qa_chain
 from app.schemas.rag import RAGRequest, RAGResponse
 router = APIRouter()
 

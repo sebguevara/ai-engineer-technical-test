@@ -15,3 +15,4 @@ def get_retrieval_qa_chain():
         retriever=retriever,
         prompt=prompt,
     )
+x
